@@ -130,7 +130,7 @@ def text_objects(text, font, color):
 
 def show_pkm_names():
     pg.font.init()
-    text = pg.font.Font('joystix monospace.ttf', 35)
+    text = pg.font.Font('fonts/joystix monospace.ttf', 35)
 
     display_name_in_menu("Choose Your Pokémon", text, (255, 255, 255), 40)
 
@@ -140,7 +140,7 @@ def show_pkm_names():
 
 def text_animation(string):
     text = ''
-    font = pg.font.Font("joystix monospace.ttf", 26)
+    font = pg.font.Font("fonts/joystix monospace.ttf", 26)
 
 
     for i in range(len(string)):
@@ -171,14 +171,14 @@ rect2 = pg.Rect(322, 94, 380, 580)
 
 atks = [Attack("Thunderwave", 75, 10), Attack("Tackle", 30, 20)]
 
-pikachu = Pokemon("Pikachu", 100, 60, pg.Color(250, 214, 29),  60, atks, pg.image.load("pikachu.png"), pg.image.load("pikachu_costas.png"), (640, 110), (130, 340))
-charmander = Pokemon("Charmander", 100, 60, pg.Color(240, 120, 0),  60, atks, pg.image.load("charmander.png"), pg.image.load("charmander_costas.png"), (643, 121), (126, 352))
-bulbasaur = Pokemon("Bulbasaur", 100, 60, pg.Color(39, 166, 50),  60, atks, pg.image.load("bulbasaur.png"), pg.image.load("bulbasaur_costas.png"), (622, 133), (120, 376))
-squirtle = Pokemon("Squirtle", 100, 60, pg.Color(147, 200, 208),  60, atks, pg.image.load("squirtle.png"), pg.image.load("squirtle_costas.png"), (600, 118), (131, 372))
-rhydon = Pokemon("Rhydon", 100, 60, pg.Color(198, 220, 219),  60, atks, pg.image.load("rhydon.png"), pg.image.load("rhydon_costas.png"), (598, 97), (138, 324))
-gengar = Pokemon("Gengar", 100, 60, pg.Color(68, 51, 119),  60, atks, pg.image.load("gengar.png"), pg.image.load("gengar_costas.png"), (626, 113), (130, 352))
-dragonite = Pokemon("Dragonite", 100, 60, pg.Color(241, 180, 109),  60, atks, pg.image.load("dragonite.png"), pg.image.load("dragonite_costas.png"), (633, 99), (130, 336))
-mewtwo = Pokemon("Mewtwo", 100, 60, pg.Color(201, 168, 199),  60, atks, pg.image.load("mewtwo.png"), pg.image.load("mewtwo_costas.png"), (597, 93), (138, 316))
+pikachu = Pokemon("Pikachu", 100, 60, pg.Color(250, 214, 29),  60, atks, pg.image.load("sprites/pikachu.png"), pg.image.load("sprites/pikachu_costas.png"), (640, 110), (130, 340))
+charmander = Pokemon("Charmander", 100, 60, pg.Color(240, 120, 0),  60, atks, pg.image.load("sprites/charmander.png"), pg.image.load("sprites/charmander_costas.png"), (643, 121), (126, 352))
+bulbasaur = Pokemon("Bulbasaur", 100, 60, pg.Color(39, 166, 50),  60, atks, pg.image.load("sprites/bulbasaur.png"), pg.image.load("sprites/bulbasaur_costas.png"), (622, 133), (120, 376))
+squirtle = Pokemon("Squirtle", 100, 60, pg.Color(147, 200, 208),  60, atks, pg.image.load("sprites/squirtle.png"), pg.image.load("sprites/squirtle_costas.png"), (600, 118), (131, 372))
+rhydon = Pokemon("Rhydon", 100, 60, pg.Color(198, 220, 219),  60, atks, pg.image.load("sprites/rhydon.png"), pg.image.load("sprites/rhydon_costas.png"), (598, 97), (138, 324))
+gengar = Pokemon("Gengar", 100, 60, pg.Color(68, 51, 119),  60, atks, pg.image.load("sprites/gengar.png"), pg.image.load("sprites/gengar_costas.png"), (626, 113), (130, 352))
+dragonite = Pokemon("Dragonite", 100, 60, pg.Color(241, 180, 109),  60, atks, pg.image.load("sprites/dragonite.png"), pg.image.load("sprites/dragonite_costas.png"), (633, 99), (130, 336))
+mewtwo = Pokemon("Mewtwo", 100, 60, pg.Color(201, 168, 199),  60, atks, pg.image.load("sprites/mewtwo.png"), pg.image.load("sprites/mewtwo_costas.png"), (597, 93), (138, 316))
 
 pokelist = [pikachu, charmander, bulbasaur, squirtle, rhydon, gengar, dragonite, mewtwo]
 
@@ -235,13 +235,13 @@ if p2.hasPkm():
 
 run = True
 
-bg = pg.image.load("FundoPokemon.png")
+bg = pg.image.load("sprites/FundoPokemon.png")
 bg = pg.transform.scale(bg, (1024, 568))
-txt_bar = pg.image.load("text_bar.png")
+txt_bar = pg.image.load("sprites/text_bar.png")
 txt_bar = pg.transform.scale(txt_bar, (1024, 200))
-fgt_options = pg.image.load("fgt_options.png")
+fgt_options = pg.image.load("sprites/fgt_options.png")
 fgt_options = pg.transform.scale(fgt_options, (474, 200))
-seletor = pg.image.load("le_setinha.png")
+seletor = pg.image.load("sprites/le_setinha.png")
 seletor = pg.transform.scale(seletor, (26, 35))
 
 
