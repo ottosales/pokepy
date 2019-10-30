@@ -1,4 +1,4 @@
 # Clone simplificado do sistema de batalhas de pokemon.
-Desenvolvimento/aprendizado próprio tanto em Python3 quanto em Pygame.
-/
+Desenvolvimento/aprendizado próprio tanto em Python3 quanto em Pygame.<br>
+/<br>
 Self developing/leaning in both Python3 and Pygame.
