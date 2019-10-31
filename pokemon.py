@@ -141,6 +141,8 @@ def show_pkm_names():
 def text_animation(string):
     text = ''
     font = pg.font.Font("fonts/joystix monospace.ttf", 26)
+    win.blit(txt_bar, (0, 568))
+    pg.display.update()
 
 
     for i in range(len(string)):
@@ -151,6 +153,20 @@ def text_animation(string):
         win.blit(textSurf, textRect)
         pg.display.update()
         pg.time.delay(40)
+
+def what_will_pokemon_do(pkm_name):
+    font = pg.font.Font("fonts/joystix monospace.ttf", 26)
+
+    textSurf, textRect = text_objects("What will", font, (255, 255, 255))
+    textSurf2, textRect2 = text_objects(pkm_name + " do?", font, (255, 255, 255))
+    textRect.x = 50
+    textRect.y = 620
+    textRect2.x = 50
+    textRect2.y = 680
+    win.blit(textSurf, textRect)
+    win.blit(textSurf2, textRect2)
+
+    pg.display.update()
 
 
 
@@ -233,8 +249,6 @@ if p2.hasPkm():
     print(p2.returnPkmName())
 
 
-run = True
-
 bg = pg.image.load("sprites/FundoPokemon.png")
 bg = pg.transform.scale(bg, (1024, 568))
 txt_bar = pg.image.load("sprites/text_bar.png")
@@ -243,9 +257,8 @@ fgt_options = pg.image.load("sprites/fgt_options.png")
 fgt_options = pg.transform.scale(fgt_options, (474, 200))
 seletor = pg.image.load("sprites/le_setinha.png")
 seletor = pg.transform.scale(seletor, (26, 35))
-
-
-
+pp_bar = pg.image.load("sprites/pp_bar.png")
+pp_bar = pg.transform.scale(pp_bar, (1024, 200))
 
 win.blit(bg, (0, 0))
 win.blit(txt_bar, (0, 568))
@@ -257,37 +270,86 @@ pg.time.delay(2000)
 
 posicaoSeletor = [580, 625]
 
-while run:
+def standard_p1_options():
+    run = True
 
-    clk.tick(60)
+    while run:
 
-    for event in pg.event.get():
-        if event.type == pg.QUIT:
-            run = False
-        if event.type == pg.KEYDOWN:
-            if event.key == pg.K_ESCAPE:
+        clk.tick(60)
+
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
                 run = False
-            if event.key == pg.K_DOWN and posicaoSeletor[1] < 690:
-                posicaoSeletor[1] += 65
-            elif event.key == pg.K_UP and posicaoSeletor[1] > 625:
-                posicaoSeletor[1] -= 65
-            elif event.key == pg.K_RIGHT and posicaoSeletor[0] < 700:
-                posicaoSeletor[0] += 220
-            elif event.key == pg.K_LEFT and posicaoSeletor[0] > 580:
-                posicaoSeletor[0] -= 220
-            elif event.key == pg.K_RETURN:
-                if posicaoSeletor[0] == 580 and posicaoSeletor[1] == 625:
-                    pass
-                    
-            
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_ESCAPE:
+                    run = False
+                if event.key == pg.K_DOWN and posicaoSeletor[1] < 690:
+                    posicaoSeletor[1] += 65
+                elif event.key == pg.K_UP and posicaoSeletor[1] > 625:
+                    posicaoSeletor[1] -= 65
+                elif event.key == pg.K_RIGHT and posicaoSeletor[0] < 700:
+                    posicaoSeletor[0] += 220
+                elif event.key == pg.K_LEFT and posicaoSeletor[0] > 580:
+                    posicaoSeletor[0] -= 220
+                elif event.key == pg.K_z:
+                    if posicaoSeletor[0] == 580 and posicaoSeletor[1] == 625:
+                        pass
+                    elif posicaoSeletor[0] == 800 and posicaoSeletor[1] == 690:
+                        text_animation("Pokémon " + p1.returnPkmName() +  " fleed from the battle!")
+                        exit()
+                        
+                
 
-    win.blit(bg, (0, 0))
-    win.blit(txt_bar, (0, 568))
-    win.blit(fgt_options, (550, 568))
-    win.blit(seletor, posicaoSeletor)
-    win.blit(p1.returnPkm().returnBPNG(), p1.returnPkm().returnBPos())
-    win.blit(p2.returnPkm().returnFPNG(), p2.returnPkm().returnFPos())
-    pg.display.update()
+        win.blit(bg, (0, 0))
+        win.blit(txt_bar, (0, 568))
+        win.blit(fgt_options, (550, 568))
+        win.blit(seletor, posicaoSeletor)
+        win.blit(p1.returnPkm().returnBPNG(), p1.returnPkm().returnBPos())
+        win.blit(p2.returnPkm().returnFPNG(), p2.returnPkm().returnFPos())
+        what_will_pokemon_do(p1.returnPkmName())
+        pg.display.update()
+
+def standard_p2_options():
+    run = True
+    
+    while run:
+
+        clk.tick(60)
+
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                run = False
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_ESCAPE:
+                    run = False
+                if event.key == pg.K_DOWN and posicaoSeletor[1] < 690:
+                    posicaoSeletor[1] += 65
+                elif event.key == pg.K_UP and posicaoSeletor[1] > 625:
+                    posicaoSeletor[1] -= 65
+                elif event.key == pg.K_RIGHT and posicaoSeletor[0] < 700:
+                    posicaoSeletor[0] += 220
+                elif event.key == pg.K_LEFT and posicaoSeletor[0] > 580:
+                    posicaoSeletor[0] -= 220
+                elif event.key == pg.K_z:
+                    if posicaoSeletor[0] == 580 and posicaoSeletor[1] == 625:
+                        pass
+                    elif posicaoSeletor[0] == 800 and posicaoSeletor[1] == 690:
+                        text_animation("Pokémon " + p2.returnPkmName() +  " fleed from the battle!")
+                        exit()
+
+                
+        win.blit(bg, (0, 0))
+        win.blit(txt_bar, (0, 568))
+        win.blit(fgt_options, (550, 568))
+        win.blit(seletor, posicaoSeletor)
+        win.blit(p2.returnPkm().returnBPNG(), p2.returnPkm().returnBPos())
+        win.blit(p1.returnPkm().returnFPNG(), p1.returnPkm().returnFPos())
+        what_will_pokemon_do(p2.returnPkmName())
+        pg.display.update()
+        
+standard_p1_options()
+
+
 
 
 #pikachu de frente: (640, 110)
