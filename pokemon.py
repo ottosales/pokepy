@@ -268,10 +268,46 @@ text_animation("A wild " + p2.returnPkmName() +  " appears!")
 pg.display.update()
 pg.time.delay(2000)
 
-posicaoSeletor = [580, 625]
+def fight(player, otherPlayer):
+    run = True
+    posicaoSeletor = [40, 620]
+
+    while run:
+        clk.tick(60)
+
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                run = False
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_ESCAPE:
+                    run = False
+                if event.key == pg.K_DOWN and posicaoSeletor[1] < 685:
+                    posicaoSeletor[1] += 65
+                elif event.key == pg.K_UP and posicaoSeletor[1] > 620:
+                    posicaoSeletor[1] -= 65
+                elif event.key == pg.K_RIGHT and posicaoSeletor[0] < 340:
+                    posicaoSeletor[0] += 300
+                elif event.key == pg.K_LEFT and posicaoSeletor[0] > 40:
+                    posicaoSeletor[0] -= 300
+                elif event.key == pg.K_x:
+                    return
+
+        win.blit(bg, (0, 0))
+        win.blit(pp_bar, (0, 568))
+        win.blit(player.returnPkm().returnBPNG(), player.returnPkm().returnBPos())
+        win.blit(otherPlayer.returnPkm().returnFPNG(), otherPlayer.returnPkm().returnFPos())
+        win.blit(seletor, posicaoSeletor)
+        pg.display.update()
+
+
+
+
+
+        
 
 def standard_p1_options():
     run = True
+    posicaoSeletor = [580, 625]
 
     while run:
 
@@ -293,7 +329,7 @@ def standard_p1_options():
                     posicaoSeletor[0] -= 220
                 elif event.key == pg.K_z:
                     if posicaoSeletor[0] == 580 and posicaoSeletor[1] == 625:
-                        pass
+                        fight(p1, p2)
                     elif posicaoSeletor[0] == 800 and posicaoSeletor[1] == 690:
                         text_animation("Pokémon " + p1.returnPkmName() +  " fleed from the battle!")
                         exit()
@@ -311,7 +347,8 @@ def standard_p1_options():
 
 def standard_p2_options():
     run = True
-    
+    posicaoSeletor = [580, 625]
+
     while run:
 
         clk.tick(60)
@@ -347,7 +384,7 @@ def standard_p2_options():
         what_will_pokemon_do(p2.returnPkmName())
         pg.display.update()
         
-standard_p1_options()
+standard_p2_options()
 
 
 
