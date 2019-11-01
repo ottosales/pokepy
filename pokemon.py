@@ -50,6 +50,9 @@ class Attack:
             self.__PPleft -= 1
             return True, self.__name, self.__power
         else: return False, None, None
+    
+    def returnAttackName(self):
+        return self.__name
 
 class Pokemon:
     __name = None
@@ -80,7 +83,8 @@ class Pokemon:
         self.__frontPos = frontPos
         self.__backPos = backPos
         
-
+    def returnAtks(self):
+        return self.__atkList
 
     def attack(self, pos):
         aux = self.__atkList[pos].attack()
@@ -168,7 +172,29 @@ def what_will_pokemon_do(pkm_name):
 
     pg.display.update()
 
+def show_moves(pkm):
+    font = pg.font.Font("fonts/joystix monospace.ttf", 25)
 
+    textSurf, textRect = text_objects(pkm.returnAtks()[0].returnAttackName(), font, (0, 0, 0))
+    textSurf1, textRect1 = text_objects(pkm.returnAtks()[1].returnAttackName(), font, (0, 0, 0))
+    textSurf2, textRect2 = text_objects(pkm.returnAtks()[2].returnAttackName(), font, (0, 0, 0))
+    textSurf3, textRect3 = text_objects(pkm.returnAtks()[3].returnAttackName(), font, (0, 0, 0))
+
+    
+
+    textRect.x, textRect.y = 70, 620
+    textRect1.x, textRect1.y = 370, 620
+    textRect2.x, textRect2.y = 70, 685
+    textRect3.x, textRect3.y = 370, 685
+    
+    win.blit(textSurf, textRect)
+    win.blit(textSurf1, textRect1)
+    win.blit(textSurf2, textRect2)
+    win.blit(textSurf3, textRect3)
+
+
+
+    pg.display.update()
 
 
 pg.init()
@@ -185,7 +211,7 @@ rect2 = pg.Rect(322, 94, 380, 580)
 
 
 
-atks = [Attack("Thunderwave", 75, 10), Attack("Tackle", 30, 20)]
+atks = [Attack("Thunderwave", 75, 10), Attack("Tackle", 30, 20), Attack("Flamethrower", 80, 10), Attack("KEK MOVE", 200, 2)]
 
 pikachu = Pokemon("Pikachu", 100, 60, pg.Color(250, 214, 29),  60, atks, pg.image.load("sprites/pikachu.png"), pg.image.load("sprites/pikachu_costas.png"), (640, 110), (130, 340))
 charmander = Pokemon("Charmander", 100, 60, pg.Color(240, 120, 0),  60, atks, pg.image.load("sprites/charmander.png"), pg.image.load("sprites/charmander_costas.png"), (643, 121), (126, 352))
@@ -297,6 +323,7 @@ def fight(player, otherPlayer):
         win.blit(player.returnPkm().returnBPNG(), player.returnPkm().returnBPos())
         win.blit(otherPlayer.returnPkm().returnFPNG(), otherPlayer.returnPkm().returnFPos())
         win.blit(seletor, posicaoSeletor)
+        show_moves(player.returnPkm())
         pg.display.update()
 
 
@@ -384,7 +411,7 @@ def standard_p2_options():
         what_will_pokemon_do(p2.returnPkmName())
         pg.display.update()
         
-standard_p2_options()
+standard_p1_options()
 
 
 
