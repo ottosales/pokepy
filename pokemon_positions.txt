@@ -1,0 +1,19 @@
+
+pikachu de frente: (640, 110)
+charmander de frente: (643, 121)
+bulbasaur de frente: (622, 133)
+squirtle de frente: (600, 118)
+rhydon de frente: (598, 97)
+gengar de frente: (626, 113)
+dragonite de frente: (633, 99)
+mewtwo de frente: (597, 93)
+
+
+pikachu de costas: (130, 340)
+charmander de costas: (126, 352)
+bulbasaur de costas: (120, 376)
+squirtle de costas: (131, 372)
+rhydon de costas: (138, 324)
+gengar de costas: (130, 352)
+dragonite de costas: (130, 336)
+mewtwo de costas: (138, 316)

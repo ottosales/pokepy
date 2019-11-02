@@ -328,10 +328,6 @@ def fight(player, otherPlayer):
 
 
 
-
-
-        
-
 def standard_p1_options():
     run = True
     posicaoSeletor = [580, 625]
@@ -372,69 +368,11 @@ def standard_p1_options():
         what_will_pokemon_do(p1.returnPkmName())
         pg.display.update()
 
-def standard_p2_options():
-    run = True
-    posicaoSeletor = [580, 625]
 
-    while run:
-
-        clk.tick(60)
-
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                run = False
-            if event.type == pg.KEYDOWN:
-                if event.key == pg.K_ESCAPE:
-                    run = False
-                if event.key == pg.K_DOWN and posicaoSeletor[1] < 690:
-                    posicaoSeletor[1] += 65
-                elif event.key == pg.K_UP and posicaoSeletor[1] > 625:
-                    posicaoSeletor[1] -= 65
-                elif event.key == pg.K_RIGHT and posicaoSeletor[0] < 700:
-                    posicaoSeletor[0] += 220
-                elif event.key == pg.K_LEFT and posicaoSeletor[0] > 580:
-                    posicaoSeletor[0] -= 220
-                elif event.key == pg.K_z:
-                    if posicaoSeletor[0] == 580 and posicaoSeletor[1] == 625:
-                        pass
-                    elif posicaoSeletor[0] == 800 and posicaoSeletor[1] == 690:
-                        text_animation("Pokémon " + p2.returnPkmName() +  " fleed from the battle!")
-                        exit()
-
-                
-        win.blit(bg, (0, 0))
-        win.blit(txt_bar, (0, 568))
-        win.blit(fgt_options, (550, 568))
-        win.blit(seletor, posicaoSeletor)
-        win.blit(p2.returnPkm().returnBPNG(), p2.returnPkm().returnBPos())
-        win.blit(p1.returnPkm().returnFPNG(), p1.returnPkm().returnFPos())
-        what_will_pokemon_do(p2.returnPkmName())
-        pg.display.update()
         
 standard_p1_options()
 
 
 
 
-#pikachu de frente: (640, 110)
-#charmander de frente: (643, 121)
-#bulbasaur de frente: (622, 133)
-#squirtle de frente: (600, 118)
-#rhydon de frente: (598, 97)
-#mewtwo de frente: (597, 93)
-#gengar de frente: (626, 113)
-#dragonite de frente: (633, 99)
-
-
-#dragonite de costas: (130, 336)
-#pikachu de costas: (130, 340)
-#charmander de costas: (126, 352)
-#bulbasaur de costas: (120, 376)
-#squirtle de costas: (131, 372)
-#rhydon de costas: (138, 324)
-#gengar de costas: (130, 352)
-#mewtwo de costas: (138, 316)
-
-
-#test comment for test commit
 
