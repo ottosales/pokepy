@@ -23,7 +23,6 @@ def show_pkm_names():
     for i in range(0, len(pokelist)):
         display_name_in_menu(pokelist[i].returnName(), text, pokelist[i].returnColor(), 125 + (i * 75))
 
-
 def text_animation(string):
     text = ''
     font = pg.font.Font("fonts/joystix monospace.ttf", 26)
@@ -81,6 +80,9 @@ def show_moves(pkm, pos):
 
     pg.display.update()
 
+def show_hp_bars(pkm1, pkm2):
+    pass
+
 
 pg.init()
 
@@ -88,9 +90,6 @@ w = wdw.Window(1024, 768)
 
 win = pg.display.set_mode(w.returnWinSize())
 pg.display.set_caption('PokePy')
-
-rect = pg.Rect(312, 84, 400, 600)
-rect2 = pg.Rect(322, 94, 380, 580)
 
 atks = [atk.Attack("Thunderwave", 75, 10), atk.Attack("Tackle", 30, 20), atk.Attack("Flamethrower", 80, 10), atk.Attack("KEK MOVE", 200, 2)]
 
@@ -105,16 +104,17 @@ mewtwo = pkm.Pokemon("Mewtwo", 100, 60, pg.Color(201, 168, 199),  60, atks, pg.t
 
 pokelist = [pikachu, charmander, bulbasaur, squirtle, rhydon, gengar, dragonite, mewtwo]
 
-
 arrowYValue = 125
 p1 = plr.Player("Red")
-
 p2 = plr.Player("Blue")
-
-pg.key.set_repeat(100)
 
 clk = pg.time.Clock()
 run = True
+
+rect = pg.Rect(312, 84, 400, 600)
+rect2 = pg.Rect(322, 94, 380, 580)
+
+pg.key.set_repeat(100)
 
 # menu de selecao de pokemons
 while run and (p1.hasPkm() == False or p2.hasPkm() == False):
@@ -168,7 +168,7 @@ text_animation("A wild " + p2.returnPkmName() +  " appears!")
 pg.display.update()
 pg.time.delay(2000)
 
-def fight(player, otherPlayer):
+def fight_menu(player, otherPlayer):
     run = True
     posicaoSeletor = [40, 620]
 
@@ -191,6 +191,24 @@ def fight(player, otherPlayer):
                     posicaoSeletor[0] -= 300
                 elif event.key == pg.K_x:
                     return
+                elif event.key == pg.K_z:
+                    if posicaoSeletor[0] == 40 and posicaoSeletor[1] == 620:
+                        text_animation(player.returnPkm().attack(0))
+                        pg.time.delay(1000)
+                        return
+                    elif posicaoSeletor[0] == 340 and posicaoSeletor[1] == 620:
+                        text_animation(player.returnPkm().attack(1))
+                        pg.time.delay(1000)
+                        return
+                    elif posicaoSeletor[0] == 40 and posicaoSeletor[1] == 685:
+                        text_animation(player.returnPkm().attack(2))
+                        pg.time.delay(1000)
+                        return
+                    else:
+                        text_animation(player.returnPkm().attack(3))
+                        pg.time.delay(1000)
+                        return
+
 
         win.blit(bg, (0, 0))
         win.blit(pp_bar, (0, 568))
@@ -209,8 +227,6 @@ def fight(player, otherPlayer):
             show_moves(player.returnPkm(), 3)        
        
         pg.display.update()
-
-
 
 def standard_player_options(p1, p2):
     run = True
@@ -236,10 +252,14 @@ def standard_player_options(p1, p2):
                     posicaoSeletor[0] -= 220
                 elif event.key == pg.K_z:
                     if posicaoSeletor[0] == 580 and posicaoSeletor[1] == 625:
-                        fight(p1, p2)
+                        fight_menu(p1, p2)
+                        return
                     elif posicaoSeletor[0] == 800 and posicaoSeletor[1] == 690:
                         text_animation("Pokémon " + p1.returnPkmName() +  " fleed from the battle!")
                         exit()
+                    else:
+                        text_animation("Sorry, this is not coded yet :c")
+                        pg.time.delay(1000)
                         
                 
 
@@ -250,12 +270,20 @@ def standard_player_options(p1, p2):
         win.blit(p1.returnPkm().returnBPNG(), p1.returnPkm().returnBPos())
         win.blit(p2.returnPkm().returnFPNG(), p2.returnPkm().returnFPos())
         what_will_pokemon_do(p1.returnPkmName())
+        show_hp_bars(p1.returnPkm(), p2.returnPkm())
         pg.display.update()
 
+def main_game_loop():
+    playerTurn = 1
+    while True:
+        if playerTurn == 1:
+            standard_player_options(p1, p2)
+            playerTurn = 0
+        else: 
+            standard_player_options(p2, p1)
+            playerTurn = 1
 
-        
-standard_player_options(p1, p2)
-
+main_game_loop()
 
 
 
