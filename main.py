@@ -54,26 +54,29 @@ def what_will_pokemon_do(pkm_name):
 
     pg.display.update()
 
-def show_moves(pkm):
+def show_moves(pkm, pos):
     font = pg.font.Font("fonts/joystix monospace.ttf", 25)
 
     textSurf, textRect = text_objects(pkm.returnAtks()[0].returnAttackName(), font, (0, 0, 0))
     textSurf1, textRect1 = text_objects(pkm.returnAtks()[1].returnAttackName(), font, (0, 0, 0))
     textSurf2, textRect2 = text_objects(pkm.returnAtks()[2].returnAttackName(), font, (0, 0, 0))
     textSurf3, textRect3 = text_objects(pkm.returnAtks()[3].returnAttackName(), font, (0, 0, 0))
-
-    
+    textSurfMAXPP, textRectMAXPP = text_objects(str(pkm.returnAtks()[pos].returnAttackMaxPP()), font, (0, 0, 0))
+    textSurfPPLeft, textRectPPLeft = text_objects(str(pkm.returnAtks()[pos].returnAttackPPLeft()), font, (0, 0, 0))
 
     textRect.x, textRect.y = 70, 620
     textRect1.x, textRect1.y = 370, 620
     textRect2.x, textRect2.y = 70, 685
     textRect3.x, textRect3.y = 370, 685
+    textRectMAXPP.center  = 960, 640
+    textRectPPLeft.center = 880, 640
     
     win.blit(textSurf, textRect)
     win.blit(textSurf1, textRect1)
     win.blit(textSurf2, textRect2)
     win.blit(textSurf3, textRect3)
-
+    win.blit(textSurfMAXPP, textRectMAXPP)
+    win.blit(textSurfPPLeft, textRectPPLeft)
 
 
     pg.display.update()
@@ -86,12 +89,8 @@ w = wdw.Window(1024, 768)
 win = pg.display.set_mode(w.returnWinSize())
 pg.display.set_caption('PokePy')
 
-run = True
-
 rect = pg.Rect(312, 84, 400, 600)
 rect2 = pg.Rect(322, 94, 380, 580)
-
-
 
 atks = [atk.Attack("Thunderwave", 75, 10), atk.Attack("Tackle", 30, 20), atk.Attack("Flamethrower", 80, 10), atk.Attack("KEK MOVE", 200, 2)]
 
@@ -115,6 +114,7 @@ p2 = plr.Player("Blue")
 pg.key.set_repeat(100)
 
 clk = pg.time.Clock()
+run = True
 
 # menu de selecao de pokemons
 while run and (p1.hasPkm() == False or p2.hasPkm() == False):
@@ -148,14 +148,6 @@ while run and (p1.hasPkm() == False or p2.hasPkm() == False):
     show_pkm_names()
     pg.draw.polygon(win, (255, 0, 0), ((350, arrowYValue), (340, arrowYValue - 10), (340, arrowYValue + 10)))
     pg.display.update()
-
-
-
-if p1.hasPkm():
-    print(p1.returnPkmName())
-if p2.hasPkm():
-    print(p2.returnPkmName())
-
 
 bg = pg.image.load("sprites/FundoPokemon.png")
 bg = pg.transform.scale(bg, (1024, 568))
@@ -205,12 +197,22 @@ def fight(player, otherPlayer):
         win.blit(player.returnPkm().returnBPNG(), player.returnPkm().returnBPos())
         win.blit(otherPlayer.returnPkm().returnFPNG(), otherPlayer.returnPkm().returnFPos())
         win.blit(seletor, posicaoSeletor)
-        show_moves(player.returnPkm())
+
+
+        if posicaoSeletor[0] == 40 and posicaoSeletor[1] == 620:
+            show_moves(player.returnPkm(), 0)
+        elif posicaoSeletor[0] == 340 and posicaoSeletor[1] == 620:
+            show_moves(player.returnPkm(), 1)
+        elif posicaoSeletor[0] == 40 and posicaoSeletor[1] == 685:
+            show_moves(player.returnPkm(), 2)
+        else:
+            show_moves(player.returnPkm(), 3)        
+       
         pg.display.update()
 
 
 
-def standard_p1_options():
+def standard_player_options(p1, p2):
     run = True
     posicaoSeletor = [580, 625]
 
@@ -252,7 +254,7 @@ def standard_p1_options():
 
 
         
-standard_p1_options()
+standard_player_options(p1, p2)
 
 
 

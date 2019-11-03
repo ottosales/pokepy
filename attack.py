@@ -3,6 +3,7 @@ class Attack:
     __power = 0
     __maxPP = 0
     __PPleft = 0
+    __element = None
 
     def __init__(self, name, power, maxPP):
         self.__name = name
@@ -17,3 +18,9 @@ class Attack:
     
     def returnAttackName(self):
         return self.__name
+
+    def returnAttackMaxPP(self):
+        return self.__maxPP
+
+    def returnAttackPPLeft(self):
+        return self.__PPleft
