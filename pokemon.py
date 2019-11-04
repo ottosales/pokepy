@@ -62,3 +62,9 @@ class Pokemon:
     
     def returnBPos(self):
         return self.__backPos
+
+    def returnMaxHP(self):
+        return self.__maxHP
+
+    def returnCurrentHP(self):
+        return self.__currentHP

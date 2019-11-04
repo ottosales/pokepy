@@ -80,8 +80,29 @@ def show_moves(pkm, pos):
 
     pg.display.update()
 
+def draw_hp_bars(val1, val1Max, val2, val2Max):
+    vidapkm1 = int(val1 * 100 / val1Max)
+    vidapkm2 = int(val2 * 100 / val2Max)
+    
+    rectpkm1 = pg.Rect(500, 500, 200, 15)
+    rectpkm2 = pg.Rect(500, 600, 200, 15)
+    pg.draw.rect(win, (0, 0, 0), rectpkm1, 1)
+    pg.draw.rect(win, (0, 0, 0), rectpkm2, 1)
+
+    pg.display.update()
+
 def show_hp_bars(pkm1, pkm2):
-    pass
+    smallFont = pg.font.Font("fonts/joystix monospace.ttf", 25)
+    largeFont = pg.font.Font("fonts/joystix monospace.ttf", 35)
+
+    textSurfPkm1Name, textRectPkm1Name = text_objects(pkm1.returnName(), largeFont, (0, 0, 0))
+    textSurfPkm2Name, textRectPkm2Name = text_objects(pkm2.returnName(), largeFont, (0, 0, 0))
+    textSurfHP, textRectHP = text_objects("HP:", smallFont, (0, 0, 0))
+
+    draw_hp_bars(pkm1.returnCurrentHP(), pkm1.returnMaxHP(), pkm2.returnCurrentHP(), pkm2.returnMaxHP())
+
+    #pass
+
 
 
 pg.init()
@@ -238,10 +259,10 @@ def standard_player_options(p1, p2):
 
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                run = False
+                exit()
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
-                    run = False
+                    exit()
                 if event.key == pg.K_DOWN and posicaoSeletor[1] < 690:
                     posicaoSeletor[1] += 65
                 elif event.key == pg.K_UP and posicaoSeletor[1] > 625:
