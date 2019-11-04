@@ -84,22 +84,50 @@ def draw_hp_bars(val1, val1Max, val2, val2Max):
     vidapkm1 = int(val1 * 100 / val1Max)
     vidapkm2 = int(val2 * 100 / val2Max)
     
-    rectpkm1 = pg.Rect(500, 500, 200, 15)
-    rectpkm2 = pg.Rect(500, 600, 200, 15)
-    pg.draw.rect(win, (0, 0, 0), rectpkm1, 1)
-    pg.draw.rect(win, (0, 0, 0), rectpkm2, 1)
-
-    pg.display.update()
+    rectpkm1 = pg.Rect(150, 90, 200, 16)
+    rectpkm2 = pg.Rect(700, 480, 200, 16)
+    lifepkm1 = pg.Rect(153, 93, 2 * vidapkm1 - 3, 12)
+    lifepkm2 = pg.Rect(703, 483, 2 * vidapkm2 - 3, 12)
+    
+    if vidapkm1 >= 50: 
+        pg.draw.rect(win, (60, 255, 60), lifepkm1)
+    elif vidapkm1 >= 10:
+        pg.draw.rect(win, (255, 204, 0), lifepkm1)
+    else:
+        pg.draw.rect(win, (204, 51, 0), lifepkm1)
+    
+    
+    pg.draw.rect(win, (60, 255, 60), lifepkm2)
+    
+    
+    pg.draw.rect(win, (0, 0, 0), rectpkm1, 4)
+    pg.draw.rect(win, (0, 0, 0), rectpkm2, 4)
+    
+    
 
 def show_hp_bars(pkm1, pkm2):
-    smallFont = pg.font.Font("fonts/joystix monospace.ttf", 25)
-    largeFont = pg.font.Font("fonts/joystix monospace.ttf", 35)
+    smallFont = pg.font.Font("fonts/joystix monospace.ttf", 15)
+    largeFont = pg.font.Font("fonts/joystix monospace.ttf", 30)
 
     textSurfPkm1Name, textRectPkm1Name = text_objects(pkm1.returnName(), largeFont, (0, 0, 0))
     textSurfPkm2Name, textRectPkm2Name = text_objects(pkm2.returnName(), largeFont, (0, 0, 0))
     textSurfHP, textRectHP = text_objects("HP:", smallFont, (0, 0, 0))
 
     draw_hp_bars(pkm1.returnCurrentHP(), pkm1.returnMaxHP(), pkm2.returnCurrentHP(), pkm2.returnMaxHP())
+    
+    textRectHP.x, textRectHP.y = 660, 480
+    
+    win.blit(textSurfHP, textRectHP)
+    
+    textRectHP.x, textRectHP.y = 110, 90
+    
+    win.blit(textSurfHP, textRectHP)
+    
+    textRectPkm1Name.center = 800, 455
+    textRectPkm2Name.center = 250, 65
+
+    win.blit(textSurfPkm1Name, textRectPkm1Name)
+    win.blit(textSurfPkm2Name, textRectPkm2Name)
 
     #pass
 
@@ -232,6 +260,7 @@ def fight_menu(player, otherPlayer):
 
 
         win.blit(bg, (0, 0))
+        show_hp_bars(p1.returnPkm(), p2.returnPkm())
         win.blit(pp_bar, (0, 568))
         win.blit(player.returnPkm().returnBPNG(), player.returnPkm().returnBPos())
         win.blit(otherPlayer.returnPkm().returnFPNG(), otherPlayer.returnPkm().returnFPos())
@@ -285,13 +314,13 @@ def standard_player_options(p1, p2):
                 
 
         win.blit(bg, (0, 0))
+        show_hp_bars(p1.returnPkm(), p2.returnPkm())
         win.blit(txt_bar, (0, 568))
         win.blit(fgt_options, (550, 568))
         win.blit(seletor, posicaoSeletor)
         win.blit(p1.returnPkm().returnBPNG(), p1.returnPkm().returnBPos())
         win.blit(p2.returnPkm().returnFPNG(), p2.returnPkm().returnFPos())
         what_will_pokemon_do(p1.returnPkmName())
-        show_hp_bars(p1.returnPkm(), p2.returnPkm())
         pg.display.update()
 
 def main_game_loop():
