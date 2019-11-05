@@ -129,8 +129,6 @@ def show_hp_bars(pkm1, pkm2):
     win.blit(textSurfPkm1Name, textRectPkm1Name)
     win.blit(textSurfPkm2Name, textRectPkm2Name)
 
-    #pass
-
 
 
 pg.init()
@@ -154,8 +152,8 @@ mewtwo = pkm.Pokemon("Mewtwo", 100, 60, pg.Color(201, 168, 199),  60, atks, pg.t
 pokelist = [pikachu, charmander, bulbasaur, squirtle, rhydon, gengar, dragonite, mewtwo]
 
 arrowYValue = 125
-p1 = plr.Player("Red")
-p2 = plr.Player("Blue")
+player1 = plr.Player("Red")
+player2 = plr.Player("Blue")
 
 clk = pg.time.Clock()
 run = True
@@ -166,7 +164,7 @@ rect2 = pg.Rect(322, 94, 380, 580)
 pg.key.set_repeat(100)
 
 # menu de selecao de pokemons
-while run and (p1.hasPkm() == False or p2.hasPkm() == False):
+while run and (player1.hasPkm() == False or player2.hasPkm() == False):
     clk.tick(60)
 
     for event in pg.event.get():
@@ -183,12 +181,12 @@ while run and (p1.hasPkm() == False or p2.hasPkm() == False):
                 arrowYValue += 75
                 if pokelist[(arrowYValue - 125) // 75].canBePicked() == False:
                     arrowYValue += 75
-            elif event.key == pg.K_RETURN:
+            elif event.key == pg.K_RETURN or event.key == pg.K_z:
                 pokelist[(arrowYValue - 125) // 75].Pick()
-                if p1.hasPkm():
-                    p2.setPkm(pokelist[(arrowYValue - 125) // 75])
+                if player1.hasPkm():
+                    player2.setPkm(pokelist[(arrowYValue - 125) // 75])
                 else:
-                    p1.setPkm(pokelist[(arrowYValue - 125) // 75])
+                    player1.setPkm(pokelist[(arrowYValue - 125) // 75])
 
 
     win.fill(w.returnColor())
@@ -211,9 +209,9 @@ pp_bar = pg.transform.scale(pp_bar, (1024, 200))
 
 win.blit(bg, (0, 0))
 win.blit(txt_bar, (0, 568))
-win.blit(p1.returnPkm().returnBPNG(), p1.returnPkm().returnBPos())
-win.blit(p2.returnPkm().returnFPNG(), p2.returnPkm().returnFPos())
-text_animation("A wild " + p2.returnPkmName() +  " appears!")
+win.blit(player1.returnPkm().returnBPNG(), player1.returnPkm().returnBPos())
+win.blit(player2.returnPkm().returnFPNG(), player2.returnPkm().returnFPos())
+text_animation("A wild " + player2.returnPkmName() +  " appears!")
 pg.display.update()
 pg.time.delay(2000)
 
@@ -239,28 +237,28 @@ def fight_menu(player, otherPlayer):
                 elif event.key == pg.K_LEFT and posicaoSeletor[0] > 40:
                     posicaoSeletor[0] -= 300
                 elif event.key == pg.K_x:
-                    return
+                    return False
                 elif event.key == pg.K_z:
                     if posicaoSeletor[0] == 40 and posicaoSeletor[1] == 620:
                         text_animation(player.returnPkm().attack(0))
                         pg.time.delay(1000)
-                        return
+                        return True
                     elif posicaoSeletor[0] == 340 and posicaoSeletor[1] == 620:
                         text_animation(player.returnPkm().attack(1))
                         pg.time.delay(1000)
-                        return
+                        return True
                     elif posicaoSeletor[0] == 40 and posicaoSeletor[1] == 685:
                         text_animation(player.returnPkm().attack(2))
                         pg.time.delay(1000)
-                        return
+                        return True
                     else:
                         text_animation(player.returnPkm().attack(3))
                         pg.time.delay(1000)
-                        return
+                        return True
 
 
         win.blit(bg, (0, 0))
-        show_hp_bars(p1.returnPkm(), p2.returnPkm())
+        show_hp_bars(player.returnPkm(), otherPlayer.returnPkm())
         win.blit(pp_bar, (0, 568))
         win.blit(player.returnPkm().returnBPNG(), player.returnPkm().returnBPos())
         win.blit(otherPlayer.returnPkm().returnFPNG(), otherPlayer.returnPkm().returnFPos())
@@ -302,8 +300,9 @@ def standard_player_options(p1, p2):
                     posicaoSeletor[0] -= 220
                 elif event.key == pg.K_z:
                     if posicaoSeletor[0] == 580 and posicaoSeletor[1] == 625:
-                        fight_menu(p1, p2)
-                        return
+                        rtn = fight_menu(p1, p2)
+                        if rtn == True:
+                            return
                     elif posicaoSeletor[0] == 800 and posicaoSeletor[1] == 690:
                         text_animation("Pokémon " + p1.returnPkmName() +  " fleed from the battle!")
                         exit()
@@ -327,10 +326,10 @@ def main_game_loop():
     playerTurn = 1
     while True:
         if playerTurn == 1:
-            standard_player_options(p1, p2)
+            standard_player_options(player1, player2)
             playerTurn = 0
         else: 
-            standard_player_options(p2, p1)
+            standard_player_options(player2, player1)
             playerTurn = 1
 
 main_game_loop()
