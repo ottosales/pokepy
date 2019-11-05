@@ -14,7 +14,8 @@ class Attack:
         if self.__PPleft > 0:
             self.__PPleft -= 1
             return True, self.__name, self.__power
-        else: return False, None, None
+        else: 
+            return False, None, None
     
     def returnAttackName(self):
         return self.__name

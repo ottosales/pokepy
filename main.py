@@ -2,7 +2,8 @@ import pygame as pg
 import window as wdw 
 import player as plr
 import attack as atk
-import pokemon as pkm 
+import pokemon as pkm
+import random
     
 def display_name_in_menu(name, text, color, pos):
     textSurf, textRect = text_objects(name, text, color)
@@ -84,21 +85,25 @@ def draw_hp_bars(val1, val1Max, val2, val2Max):
     vidapkm1 = int(val1 * 100 / val1Max)
     vidapkm2 = int(val2 * 100 / val2Max)
     
-    rectpkm1 = pg.Rect(150, 90, 200, 16)
-    rectpkm2 = pg.Rect(700, 480, 200, 16)
-    lifepkm1 = pg.Rect(153, 93, 2 * vidapkm1 - 3, 12)
-    lifepkm2 = pg.Rect(703, 483, 2 * vidapkm2 - 3, 12)
+    rectpkm1 = pg.Rect(700, 480, 200, 16)
+    rectpkm2 = pg.Rect(150, 90, 200, 16)
+    lifepkm1 = pg.Rect(703, 483, 2 * vidapkm1 - 3, 12)
+    lifepkm2 = pg.Rect(153, 93, 2 * vidapkm2 - 3, 12)
     
     if vidapkm1 >= 50: 
         pg.draw.rect(win, (60, 255, 60), lifepkm1)
-    elif vidapkm1 >= 10:
+    elif vidapkm1 >= 15:
         pg.draw.rect(win, (255, 204, 0), lifepkm1)
     else:
         pg.draw.rect(win, (204, 51, 0), lifepkm1)
-    
-    
-    pg.draw.rect(win, (60, 255, 60), lifepkm2)
-    
+
+    if vidapkm2 >= 50: 
+        pg.draw.rect(win, (60, 255, 60), lifepkm2)
+    elif vidapkm2 >= 15:
+        pg.draw.rect(win, (255, 204, 0), lifepkm2)
+    else:
+        pg.draw.rect(win, (204, 51, 0), lifepkm2)
+       
     
     pg.draw.rect(win, (0, 0, 0), rectpkm1, 4)
     pg.draw.rect(win, (0, 0, 0), rectpkm2, 4)
@@ -129,7 +134,18 @@ def show_hp_bars(pkm1, pkm2):
     win.blit(textSurfPkm1Name, textRectPkm1Name)
     win.blit(textSurfPkm2Name, textRectPkm2Name)
 
+def calc_dmg(pkm1, pkm2, pos):
+    # damage = (A/D) * POWER/5 * EFET * CRIT CHANCE
+    roll = random.randint(1, 20)
 
+    damage = int((pkm1.returnAttack()/pkm2.returnDefense()) * (pkm1.attack(pos)[1]/5))
+
+    if roll == 20:
+        text_animation("A critical hit!")
+        pg.time.delay(800)
+        damage *= 2
+
+    pkm2.attLife(damage)
 
 pg.init()
 
@@ -240,20 +256,24 @@ def fight_menu(player, otherPlayer):
                     return False
                 elif event.key == pg.K_z:
                     if posicaoSeletor[0] == 40 and posicaoSeletor[1] == 620:
-                        text_animation(player.returnPkm().attack(0))
+                        text_animation(player.returnPkm().attack(0)[0])
                         pg.time.delay(1000)
+                        calc_dmg(player.returnPkm(), otherPlayer.returnPkm(), 0)
                         return True
                     elif posicaoSeletor[0] == 340 and posicaoSeletor[1] == 620:
-                        text_animation(player.returnPkm().attack(1))
+                        text_animation(player.returnPkm().attack(1)[0])
                         pg.time.delay(1000)
+                        calc_dmg(player.returnPkm(), otherPlayer.returnPkm(), 1)
                         return True
                     elif posicaoSeletor[0] == 40 and posicaoSeletor[1] == 685:
-                        text_animation(player.returnPkm().attack(2))
+                        text_animation(player.returnPkm().attack(2)[0])
                         pg.time.delay(1000)
+                        calc_dmg(player.returnPkm(), otherPlayer.returnPkm(), 2)
                         return True
                     else:
-                        text_animation(player.returnPkm().attack(3))
+                        text_animation(player.returnPkm().attack(3)[0])
                         pg.time.delay(1000)
+                        calc_dmg(player.returnPkm(), otherPlayer.returnPkm(), 3)
                         return True
 
 
@@ -325,6 +345,8 @@ def standard_player_options(p1, p2):
 def main_game_loop():
     playerTurn = 1
     while True:
+        print("Player 1's HP: " + str(player1.returnPkm().returnCurrentHP()))
+        print("Player 2's HP: " + str(player2.returnPkm().returnCurrentHP()))
         if playerTurn == 1:
             standard_player_options(player1, player2)
             playerTurn = 0

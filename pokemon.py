@@ -15,8 +15,8 @@ class Pokemon:
 
     def __init__(self, name, attack, defense, color, hp, atkList, frontPNG, backPNG, frontPos, backPos):
         self.__name = name
-        self.__atk = attack
-        self.__def = defense
+        self.__attack = attack
+        self.__defense = defense
         self.__color = color
         self.__maxHP = self.__currentHP = hp
         self.__atkList = atkList
@@ -30,9 +30,9 @@ class Pokemon:
 
     def attack(self, pos):
         aux = self.__atkList[pos].attack()
-
+        print(aux[0], aux[1], aux[2])
         if aux[0]:
-            return self.__name + " used " + aux[1]
+            return self.__name + " used " + aux[1], aux[2]
         else:
             return "There's no PP left for this movement!"
     
@@ -68,3 +68,12 @@ class Pokemon:
 
     def returnCurrentHP(self):
         return self.__currentHP
+
+    def returnAttack(self):
+        return self.__attack
+
+    def returnDefense(self):
+        return self.__defense
+
+    def attLife(self, dmg):
+        self.__currentHP = self.__currentHP - dmg if self.__currentHP >= dmg else 0
