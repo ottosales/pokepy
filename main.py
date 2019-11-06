@@ -154,18 +154,20 @@ w = wdw.Window(1024, 768)
 win = pg.display.set_mode(w.returnWinSize())
 pg.display.set_caption('PokePy')
 
-atks = [atk.Attack("Thunderwave", 75, 10), atk.Attack("Tackle", 30, 20), atk.Attack("Flamethrower", 80, 10), atk.Attack("KEK MOVE", 200, 2)]
+atks = [atk.Attack("Thunderwave", 75, 10, "Electric"), atk.Attack("Tackle", 30, 20, "Normal"), atk.Attack("Flamethrower", 80, 10, "Fire"), atk.Attack("KEK MOVE", 200, 2, "Psychic")]
 
-pikachu = pkm.Pokemon("Pikachu", 100, 60, pg.Color(250, 214, 29),  60, atks, pg.transform.scale(pg.image.load("sprites/pikachu.png"), (256, 256)), pg.transform.scale(pg.image.load("sprites/pikachu_costas.png"), (256, 256)), (640, 110), (130, 340))
-charmander = pkm.Pokemon("Charmander", 100, 60, pg.Color(240, 120, 0),  60, atks, pg.transform.scale(pg.image.load("sprites/charmander.png"), (256, 256)), pg.transform.scale(pg.image.load("sprites/charmander_costas.png"), (256, 256)), (643, 121), (126, 352))
-bulbasaur = pkm.Pokemon("Bulbasaur", 100, 60, pg.Color(39, 166, 50),  60, atks, pg.transform.scale(pg.image.load("sprites/bulbasaur.png"), (256, 256)), pg.transform.scale(pg.image.load("sprites/bulbasaur_costas.png"), (256, 256)), (622, 133), (120, 376))
-squirtle = pkm.Pokemon("Squirtle", 100, 60, pg.Color(147, 200, 208),  60, atks, pg.transform.scale(pg.image.load("sprites/squirtle.png"), (256, 256)), pg.transform.scale(pg.image.load("sprites/squirtle_costas.png"), (256, 256)), (600, 118), (131, 372))
-rhydon = pkm.Pokemon("Rhydon", 100, 60, pg.Color(198, 220, 219),  60, atks, pg.transform.scale(pg.image.load("sprites/rhydon.png"), (256, 256)), pg.transform.scale(pg.image.load("sprites/rhydon_costas.png"), (256, 256)), (598, 97), (138, 324))
-gengar = pkm.Pokemon("Gengar", 100, 60, pg.Color(68, 51, 119),  60, atks, pg.transform.scale(pg.image.load("sprites/gengar.png"), (256, 256)), pg.transform.scale(pg.image.load("sprites/gengar_costas.png"), (256, 256)), (626, 113), (130, 352))
-dragonite = pkm.Pokemon("Dragonite", 100, 60, pg.Color(241, 180, 109),  60, atks, pg.transform.scale(pg.image.load("sprites/dragonite.png"), (256, 256)), pg.transform.scale(pg.image.load("sprites/dragonite_costas.png"), (256, 256)), (633, 99), (130, 336))
-mewtwo = pkm.Pokemon("Mewtwo", 100, 60, pg.Color(201, 168, 199),  60, atks, pg.transform.scale(pg.image.load("sprites/mewtwo.png"), (256, 256)), pg.transform.scale(pg.image.load("sprites/mewtwo_costas.png"), (256, 256)), (597, 93), (138, 316))
+pikachu = pkm.Pokemon("Pikachu", 100, 60, pg.Color(250, 214, 29),  60, atks, pg.transform.scale(pg.image.load("sprites/pikachu.png"), (256, 256)), pg.transform.scale(pg.image.load("sprites/pikachu_costas.png"), (256, 256)), (640, 110), (130, 340), "Electric")
+charmander = pkm.Pokemon("Charmander", 100, 60, pg.Color(240, 120, 0),  60, atks, pg.transform.scale(pg.image.load("sprites/charmander.png"), (256, 256)), pg.transform.scale(pg.image.load("sprites/charmander_costas.png"), (256, 256)), (643, 121), (126, 352), "Fire")
+bulbasaur = pkm.Pokemon("Bulbasaur", 100, 60, pg.Color(39, 166, 50),  60, atks, pg.transform.scale(pg.image.load("sprites/bulbasaur.png"), (256, 256)), pg.transform.scale(pg.image.load("sprites/bulbasaur_costas.png"), (256, 256)), (622, 133), (120, 376), "Grass")
+squirtle = pkm.Pokemon("Squirtle", 100, 60, pg.Color(147, 200, 208),  60, atks, pg.transform.scale(pg.image.load("sprites/squirtle.png"), (256, 256)), pg.transform.scale(pg.image.load("sprites/squirtle_costas.png"), (256, 256)), (600, 118), (131, 372), "Water")
+rhydon = pkm.Pokemon("Rhydon", 100, 60, pg.Color(198, 220, 219),  60, atks, pg.transform.scale(pg.image.load("sprites/rhydon.png"), (256, 256)), pg.transform.scale(pg.image.load("sprites/rhydon_costas.png"), (256, 256)), (598, 97), (138, 324), "Ground")
+gengar = pkm.Pokemon("Gengar", 100, 60, pg.Color(68, 51, 119),  60, atks, pg.transform.scale(pg.image.load("sprites/gengar.png"), (256, 256)), pg.transform.scale(pg.image.load("sprites/gengar_costas.png"), (256, 256)), (626, 113), (130, 352), "Ghost")
+dragonite = pkm.Pokemon("Dragonite", 100, 60, pg.Color(241, 180, 109),  60, atks, pg.transform.scale(pg.image.load("sprites/dragonite.png"), (256, 256)), pg.transform.scale(pg.image.load("sprites/dragonite_costas.png"), (256, 256)), (633, 99), (130, 336), "Dragon")
+mewtwo = pkm.Pokemon("Mewtwo", 100, 60, pg.Color(201, 168, 199),  60, atks, pg.transform.scale(pg.image.load("sprites/mewtwo.png"), (256, 256)), pg.transform.scale(pg.image.load("sprites/mewtwo_costas.png"), (256, 256)), (597, 93), (138, 316), "Psychic")
 
 pokelist = [pikachu, charmander, bulbasaur, squirtle, rhydon, gengar, dragonite, mewtwo]
+
+#https://strategywiki.org/wiki/Pok%C3%A9mon_FireRed_and_LeafGreen/Types_%26_Stats link pros move types
 
 arrowYValue = 125
 player1 = plr.Player("Red")

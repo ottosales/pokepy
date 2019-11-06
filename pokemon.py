@@ -11,9 +11,10 @@ class Pokemon:
     __frontPos = None
     __backPNG = None
     __backPos = None
+    __element = None
     
 
-    def __init__(self, name, attack, defense, color, hp, atkList, frontPNG, backPNG, frontPos, backPos):
+    def __init__(self, name, attack, defense, color, hp, atkList, frontPNG, backPNG, frontPos, backPos, element):
         self.__name = name
         self.__attack = attack
         self.__defense = defense
@@ -24,6 +25,7 @@ class Pokemon:
         self.__backPNG = backPNG
         self.__frontPos = frontPos
         self.__backPos = backPos
+        self.__element = element
         
     def returnAtks(self):
         return self.__atkList
@@ -76,3 +78,6 @@ class Pokemon:
 
     def attLife(self, dmg):
         self.__currentHP = self.__currentHP - dmg if self.__currentHP >= dmg else 0
+
+    def returnElement(self):
+        return self.__element

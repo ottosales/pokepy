@@ -5,10 +5,11 @@ class Attack:
     __PPleft = 0
     __element = None
 
-    def __init__(self, name, power, maxPP):
+    def __init__(self, name, power, maxPP, element):
         self.__name = name
         self.__power = power
         self.__maxPP = self.__PPleft = maxPP
+        self.__element = element
         
     def attack(self):
         if self.__PPleft > 0:
@@ -25,3 +26,6 @@ class Attack:
 
     def returnAttackPPLeft(self):
         return self.__PPleft
+    
+    def returnElement(self):
+        return self.__element
