@@ -30,7 +30,6 @@ class Pokemon:
 
     def attack(self, pos):
         aux = self.__atkList[pos].attack()
-        print(aux[0], aux[1], aux[2])
         if aux[0]:
             return self.__name + " used " + aux[1], aux[2]
         else:

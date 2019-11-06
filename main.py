@@ -140,7 +140,7 @@ def calc_dmg(pkm1, pkm2, pos):
 
     damage = int((pkm1.returnAttack()/pkm2.returnDefense()) * (pkm1.attack(pos)[1]/5))
 
-    if roll == 20:
+    if roll == 20: 
         text_animation("A critical hit!")
         pg.time.delay(800)
         damage *= 2
@@ -344,9 +344,9 @@ def standard_player_options(p1, p2):
 
 def main_game_loop():
     playerTurn = 1
-    while True:
-        print("Player 1's HP: " + str(player1.returnPkm().returnCurrentHP()))
-        print("Player 2's HP: " + str(player2.returnPkm().returnCurrentHP()))
+    while player1.returnPkm().returnCurrentHP() > 0 and player2.returnPkm().returnCurrentHP() > 0:
+        print(player1.returnPkm().returnCurrentHP())
+        print(player2.returnPkm().returnCurrentHP())
         if playerTurn == 1:
             standard_player_options(player1, player2)
             playerTurn = 0
@@ -354,7 +354,26 @@ def main_game_loop():
             standard_player_options(player2, player1)
             playerTurn = 1
 
+
+
 main_game_loop()
+
+if player1.returnPkm().returnCurrentHP() > 0:
+    win.blit(bg, (0, 0))
+    show_hp_bars(player1.returnPkm(), player2.returnPkm())
+    win.blit(player1.returnPkm().returnBPNG(), player1.returnPkm().returnBPos())
+    win.blit(player2.returnPkm().returnFPNG(), player2.returnPkm().returnFPos())
+    text_animation(player1.returnPkmName() + " won the battle!")
+    pg.time.delay(1000)
+    exit()
+else:
+    win.blit(bg, (0, 0))
+    show_hp_bars(player2.returnPkm(), player1.returnPkm())
+    win.blit(player2.returnPkm().returnBPNG(), player2.returnPkm().returnBPos())
+    win.blit(player1.returnPkm().returnFPNG(), player1.returnPkm().returnFPos())
+    text_animation(player2.returnPkmName() + " won the battle!")
+    pg.time.delay(1000)
+    exit()
 
 
 
