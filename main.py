@@ -134,16 +134,56 @@ def show_hp_bars(pkm1, pkm2):
     win.blit(textSurfPkm1Name, textRectPkm1Name)
     win.blit(textSurfPkm2Name, textRectPkm2Name)
 
+def set_element_chat():
+    return {"Normal":{"Electric": 1, "Fire": 1, "Water": 1, "Grass": 1, "Ground": 1, "Ghost": 0, "Dragon": 1, "Psychic": 1},
+    "Fire":{"Electric": 1, "Fire": 0.5, "Water": 0.5, "Grass": 2, "Ground": 1, "Ghost": 1, "Dragon": 0.5, "Psychic": 1},
+    "Water":{"Electric": 1, "Fire": 2, "Water": 0.5, "Grass": 0.5, "Ground": 2, "Ghost": 1, "Dragon": 0.5, "Psychic": 1},
+    "Electric":{"Electric": 0.5, "Fire": 1, "Water": 2, "Grass": 0.5, "Ground": 0, "Ghost": 1, "Dragon": 0.5, "Psychic": 1},
+    "Grass":{"Electric": 1, "Fire": 0.5, "Water": 2, "Grass": 0.5, "Ground": 2, "Ghost": 1, "Dragon": 0.5, "Psychic": 1},
+    "Rock":{"Electric": 1, "Fire": 2, "Water": 1, "Grass": 1, "Ground": 0.5, "Ghost": 1, "Dragon": 1, "Psychic": 1},
+    "Ground":{"Electric": 2, "Fire": 2, "Water": 1, "Grass": 0.5, "Ground": 1, "Ghost": 1, "Dragon": 1, "Psychic": 1},
+    "Ghost":{"Electric": 1, "Fire": 1, "Water": 1, "Grass": 1, "Ground": 1, "Ghost": 2, "Dragon": 1, "Psychic": 2},
+    "Psychic":{"Electric": 1, "Fire": 1, "Water": 1, "Grass": 1, "Ground": 1, "Ghost": 1, "Dragon": 1, "Psychic": 0.5},
+    "Flying":{"Electric": 0.5, "Fire": 1, "Water": 1, "Grass": 2, "Ground": 1, "Ghost": 1, "Dragon": 1, "Psychic": 1},
+    "Ice":{"Electric": 1, "Fire": 0.5, "Water": 0.5, "Grass": 2, "Ground": 2, "Ghost": 1, "Dragon": 2, "Psychic": 1},
+    "Bug":{"Electric": 1, "Fire": 0.5, "Water": 1, "Grass": 2, "Ground": 1, "Ghost": 1, "Dragon": 1, "Psychic": 2},
+    "Dragon":{"Electric": 1, "Fire": 1, "Water": 1, "Grass": 1, "Ground": 1, "Ghost": 1, "Dragon": 2, "Psychic": 1}}
+
 def calc_dmg(pkm1, pkm2, pos):
     # damage = (A/D) * POWER/5 * EFET * CRIT CHANCE
+
+    typeChartDict = set_element_chat()
+
     roll = random.randint(1, 20)
 
     damage = int((pkm1.returnAttack()/pkm2.returnDefense()) * (pkm1.attack(pos)[1]/5))
+
+    """print(pkm1.returnAtks()[pos].returnElement())
+    print(pkm2.returnElement())
+    try:
+        print(typeChartDict[pkm1.returnAtks()[pos].returnElement()][pkm2.returnElement()])
+    except KeyError:
+        print(typeChartDict)"""
 
     if roll == 20: 
         text_animation("A critical hit!")
         pg.time.delay(800)
         damage *= 2
+
+    if typeChartDict[pkm1.returnAtks()[pos].returnElement()][pkm2.returnElement()] == 2:
+        text_animation("It's very effective!")
+        pg.time.delay(800)
+        damage *= 2
+    elif typeChartDict[pkm1.returnAtks()[pos].returnElement()][pkm2.returnElement()] == 0.5:
+        text_animation("It's not very effective!")
+        pg.time.delay(800)
+        damage *= 0.5
+
+    elif typeChartDict[pkm1.returnAtks()[pos].returnElement()][pkm2.returnElement()] == 0:
+        text_animation(pkm1.returnName() + "'s attack missed!")
+        pg.delay(800)
+        damage = 0
+
 
     pkm2.attLife(damage)
 
@@ -365,6 +405,8 @@ if player1.returnPkm().returnCurrentHP() > 0:
     show_hp_bars(player1.returnPkm(), player2.returnPkm())
     win.blit(player1.returnPkm().returnBPNG(), player1.returnPkm().returnBPos())
     win.blit(player2.returnPkm().returnFPNG(), player2.returnPkm().returnFPos())
+    text_animation(player2.returnPkmName() + " feinted!")
+    pg.time.delay(800)
     text_animation(player1.returnPkmName() + " won the battle!")
     pg.time.delay(1000)
     exit()
@@ -373,6 +415,8 @@ else:
     show_hp_bars(player2.returnPkm(), player1.returnPkm())
     win.blit(player2.returnPkm().returnBPNG(), player2.returnPkm().returnBPos())
     win.blit(player1.returnPkm().returnFPNG(), player1.returnPkm().returnFPos())
+    text_animation(player1.returnPkmName() + " feinted!")
+    pg.time.delay(800)
     text_animation(player2.returnPkmName() + " won the battle!")
     pg.time.delay(1000)
     exit()
